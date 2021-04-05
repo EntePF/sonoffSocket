@@ -26,22 +26,25 @@
 
 
 // constants
-const char* switchOnHtmlLink = "<a href=\"ein\">Einschalten</a>";
-const char* switchOffHtmlLink = "<a href=\"aus\">Ausschalten</a>";
-const char* switchStateJavascript = "<script>" +
-	"function httpGet(theUrl){" +
-	"var xmlHttp = new XMLHttpRequest();" +
-	"xmlHttp.open( 'GET', theUrl, false );" +
-	"xmlHttp.send( null );" +
-	"return xmlHttp.responseText;" +
-	"}" +
-	"function switchState(newState){" +
-	"httpGet(newState);" +
-	"location.reload();" +
-	"}" +
-	"</script>";
-const char* switchOnHtmlButton = switchStateJavascript + "<p style="display:flex"><button style="flex-grow:1;height:10rem" onclick="switchState('ein')">Einschalten</button></p>";
-const char* switchOffHtmlButton = switchStateJavascript + "<p style="display:flex"><button style="flex-grow:1;height:10rem" onclick="switchState('aus')">Ausschalten</button></p>";
+const String switchOnHtmlLink = "<a href=\"ein\">Einschalten</a>";
+const String switchOffHtmlLink = "<a href=\"aus\">Ausschalten</a>";
+const String switchStateJavascript = String("<script>") +
+  "function httpGet(theUrl){" +
+  "var xmlHttp = new XMLHttpRequest();" +
+  "xmlHttp.open( 'GET', theUrl, false );" +
+  "xmlHttp.send( null );" +
+  "return xmlHttp.responseText;" +
+  "}" +
+  "function switchState(newState){" +
+  "httpGet(newState);" +
+  "location.reload();" +
+  "}" +
+  "</script>";
+const String buttonHtmlStyle = "flex-grow:0;height:6rem;font-size:4rem";
+const String switchOnHtmlButton = switchStateJavascript + "<p style=\"display:flex\"><button style=\"" + buttonHtmlStyle +
+  "\" onclick=\"switchState('ein')\">Einschalten</button></p>";
+const String switchOffHtmlButton = switchStateJavascript + "<p style=\"display:flex\"><button style=\"" + buttonHtmlStyle +
+  "\" onclick=\"switchState('aus')\">Ausschalten</button></p>";
 
 ESP8266WebServer server(80);
 #if USE_WEBUPDATE == 1
@@ -108,7 +111,7 @@ void setup(void){
   digitalWrite(gpio13Led, HIGH);
 
 
-#if USE_MQTT == 1  
+#if USE_MQTT == 1
   client.setServer(mqtt_server, 1883);
   client.setCallback(MqttCallback);
 #endif
